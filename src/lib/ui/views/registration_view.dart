@@ -9,11 +9,7 @@ class RegistrationView extends ConsumerWidget{
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      appBar: AppBar(
-        leading: BackButton(
-          onPressed: () => context.go('/login'),
-        ),
-      ),
+      appBar: AppBar(),
       body: Center(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 15.0),
@@ -21,20 +17,20 @@ class RegistrationView extends ConsumerWidget{
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 5.0),
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 5.0),
                 child: TextField(
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                       hintText: 'Email',
                       prefixIcon: Icon(Icons.email),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10.0)))),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 5.0),
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 5.0),
                 child: TextField(
-                  decoration: const InputDecoration(hintText: 'Password',
+                  decoration: InputDecoration(hintText: 'Password',
                       prefixIcon: Icon(Icons.password),
                       border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(10.0)))),
                 ),
@@ -43,7 +39,10 @@ class RegistrationView extends ConsumerWidget{
                 padding: EdgeInsets.symmetric(vertical: 15.0),
                 child: Expanded(
                   child: ElevatedButton(
-                    onPressed: null,
+                    onPressed: () {
+                      // context.go('/sectionA');
+                      context.go('/parkings');
+                    },
                     child: const Text('Register'),
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(

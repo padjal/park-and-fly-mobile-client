@@ -38,7 +38,7 @@ class LoginView extends ConsumerWidget {
                 padding: EdgeInsets.symmetric(vertical: 15.0),
                 child: Expanded(
                   child: ElevatedButton(
-                    onPressed: () => context.go('/main'),
+                    onPressed: () => context.go('/parkings'),
                     child: const Text('Login'),
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
@@ -52,14 +52,14 @@ class LoginView extends ConsumerWidget {
                 children: [
                   const Text('Don\'t have an account yet?'),
                   InkWell(
-                    child: Padding(
+                    child: const Padding(
                       padding: EdgeInsets.only(left: 4.0),
                       child: Text(
                         'Register',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
-                    onTap: () => context.go('/register'),
+                    onTap: () => context.go('/login/register'),
                   )
                 ],
               )

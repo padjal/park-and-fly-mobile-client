@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:src/ui/components/scaffold_with_nested_navigation.dart';
+import 'package:src/utils/router_config.dart';
 
 class MainView extends ConsumerWidget {
   MainView({super.key});
@@ -21,19 +22,11 @@ class MainView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final router = ref.watch(goRouterProvider);
 
     return Scaffold(
       bottomNavigationBar: NavigationBar(
         destinations: destinations,
-        onDestinationSelected: (index) {
-          switch(index){
-            case 1:
-              context.go('/profile');
-              break;
-            default:
-              context.go('/main');
-          }
-        },
       ),
     );
   }

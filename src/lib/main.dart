@@ -14,12 +14,12 @@ class MyApp extends ConsumerWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final goRouter = ref.watch(goRouterProvider);
+
     return MaterialApp.router(
       title: "Park & Fly",
       theme: ThemeData(),
-      routeInformationParser: RouterConfiguration.router.routeInformationParser,
-      routerDelegate: RouterConfiguration.router.routerDelegate,
-      routeInformationProvider: RouterConfiguration.router.routeInformationProvider,
+      routerConfig: goRouter,
     );
   }
 }
