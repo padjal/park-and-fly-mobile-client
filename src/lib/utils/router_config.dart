@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:src/ui/views/parkings_view.dart';
-import 'package:src/ui/views/settings_view.dart';
 
 import '../ui/components/scaffold_with_nested_navigation.dart';
 import '../ui/views/login_view.dart';
 import '../ui/views/main_view.dart';
+import '../ui/views/parkings_view.dart';
 import '../ui/views/profile_view.dart';
 import '../ui/views/registration_view.dart';
+import '../ui/views/settings_view.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
