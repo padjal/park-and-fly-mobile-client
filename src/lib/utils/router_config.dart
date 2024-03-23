@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:park_and_fly/ui/views/bookings_view.dart';
+import 'package:park_and_fly/ui/views/map_view.dart';
 
 import '../ui/components/scaffold_with_nested_navigation.dart';
 import '../ui/views/login_view.dart';
@@ -40,7 +42,24 @@ final goRouterProvider = Provider<GoRouter>((ref) {
               GoRoute(
                 path: '/parkings',
                 pageBuilder: (context, state) => NoTransitionPage(
-                  child: ParkingsView(),
+                  child: MapView(),
+                ),
+                routes: [
+                  GoRoute(path: 'list',
+                    pageBuilder: (context, state) => NoTransitionPage(
+                      child: ParkingsView(),
+                    ),)
+                ]
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              // top route inside branch
+              GoRoute(
+                path: '/bookings',
+                pageBuilder: (context, state) => NoTransitionPage(
+                  child: BookingsView(),
                 ),
               ),
             ],
