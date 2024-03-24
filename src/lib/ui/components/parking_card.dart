@@ -14,29 +14,32 @@ class ParkingCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Row(
-        children: [
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(name,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      fontSize: 18
-                    ),),
-                  Text(address)
-                ],
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+        child: Row(
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(name,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        fontSize: 18
+                      ),),
+                    Text(address)
+                  ],
+                ),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Icon(Icons.local_parking),
-          )
-        ],
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Icon(Icons.local_parking),
+            )
+          ],
+        ),
       ),
     );
   }
