@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../models/parking.dart';
 
@@ -44,7 +45,7 @@ class ParkingView extends StatelessWidget{
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text('${parking.name} ${parkingId}', style: TextStyle(
                   fontWeight: FontWeight.bold, fontSize: 25
@@ -52,6 +53,19 @@ class ParkingView extends StatelessWidget{
                 Text(parking.address, style: TextStyle(
                     fontSize: 18, color: Colors.black45
                 ),),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 15.0),
+                  child: Expanded(
+                    child: ElevatedButton(
+                      onPressed: () => context.go('/parkings/reservation/${parkingId}'),
+                      child: const Text('Book now'),
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0)),
+                      ),
+                    ),
+                  ),
+                ),
                 // Column(
                 //   children: [
                 //     Icon(Icons.check),

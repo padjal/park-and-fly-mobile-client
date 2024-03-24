@@ -14,6 +14,7 @@ import '../ui/views/parking_view.dart';
 import '../ui/views/parkings_view.dart';
 import '../ui/views/profile_view.dart';
 import '../ui/views/registration_view.dart';
+import '../ui/views/reservation_view.dart';
 import '../ui/views/settings_view.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -58,6 +59,15 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                       builder: (BuildContext context, GoRouterState state) {
                         final id = state.pathParameters['id']!;
                         return ParkingView(
+                          parkingId: id,
+                        );
+                      },
+                    ),
+                    GoRoute(
+                      path: 'reservation/:id',
+                      builder: (BuildContext context, GoRouterState state) {
+                        final id = state.pathParameters['id']!;
+                        return ReservationView(
                           parkingId: id,
                         );
                       },
