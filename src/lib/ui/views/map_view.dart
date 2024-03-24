@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
+import 'dart:math' as math;
 import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,8 +9,22 @@ import 'package:permission_handler/permission_handler.dart';
 
 class MapView extends StatelessWidget {
   // default constructor
-  static MapController mapController = MapController.withUserPosition(
-  );
+  static MapController mapController = MapController.withUserPosition();
+
+  static const _icon = MarkerIcon(
+      icon: Icon(
+        Icons.location_on,
+        color: Colors.blue,
+        size: 60,
+      ));
+
+      var _staticPoints = [
+    StaticPositionGeoPoint('1',  _icon, [GeoPoint(latitude: 42.690755, longitude: 23.3861518)]),
+    StaticPositionGeoPoint('2',  _icon, [GeoPoint(latitude: 42.690955, longitude: 23.3751618)]),
+    StaticPositionGeoPoint('3',  _icon, [GeoPoint(latitude: 42.6855597, longitude: 23.3909717)]),
+    StaticPositionGeoPoint('4',  _icon, [GeoPoint(latitude: 42.660355, longitude: 23.3751818)]),
+  ];
+
 
   @override
   Widget build(BuildContext context) {
@@ -48,17 +63,23 @@ class MapView extends StatelessWidget {
       //     )
       //   },
       // ),
-      body: Stack(
-        children: [
-          OSMFlutter(
-            controller:mapController,
+      body: Stack(children: [
+        OSMFlutter(
+            controller: mapController,
             initZoom: 12,
             trackMyPosition: true,
-          ),
-        ]
-      ),
+            staticPoints: _staticPoints,
+            onMapIsReady: _addMarkers,
+        onGeoPointClicked: (geoPoint){
+              var foundPoint = _staticPoints.singleWhere((element) =>
+                element.geoPoints?[0].latitude == geoPoint.latitude && element.geoPoints?[0].longitude == geoPoint.longitude
+              );
 
-        floatingActionButton: FloatingActionButton(
+              context.go('/parkings/${foundPoint.id}');
+        },),
+      ]),
+
+      floatingActionButton: FloatingActionButton(
         onPressed: () async {
           await mapController.currentLocation();
 
@@ -69,5 +90,14 @@ class MapView extends StatelessWidget {
         child: Icon(Icons.pin_drop),
       ),
     );
+  }
+
+  _addMarkers(bool) async {
+    // await mapController.addMarker(
+    //     GeoPoint(latitude: 42.690755, longitude: 23.3751518),
+    //     angle: math.pi / 3);
+  //   await mapController.addMarker(
+  //       GeoPoint(latitude: 42.690755, longitude: 23.3751518),
+  //       angle: math.pi / 3);
   }
 }
