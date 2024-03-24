@@ -1,10 +1,15 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
-class SettingsView extends ConsumerWidget{
+class SettingsView extends StatelessWidget{
+  bool darkThemeEnabled = false;
+
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Settings"),
@@ -18,61 +23,45 @@ class SettingsView extends ConsumerWidget{
               _SingleSection(
                 title: "General",
                 children: [
-                  const _CustomListTile(
-                      title: "About Phone",
-                      icon: Icons.phone_android),
+                  _CustomListTile(
+                      title: "About app",
+                      icon: Icons.phone_android,
+                      onClick: ()  {
+                        log('test');
+                        context.go('/profile/settings/about');},
+                  ),
                   _CustomListTile(
                       title: "Dark Mode",
                       icon: Icons.nightlight_outlined,
                       trailing:
-                      Switch(value: false, onChanged: (value) {})),
-                  const _CustomListTile(
-                      title: "System Apps Updater",
-                      icon: Icons.cloud_download),
-                  const _CustomListTile(
-                      title: "Security Status",
-                      icon: Icons.shield),
-                ],
-              ),
-              _SingleSection(
-                title: "Network",
-                children: [
-                  const _CustomListTile(
-                      title: "SIM Cards and Networks",
-                      icon: Icons.sd_card_outlined),
+                      Switch(value: darkThemeEnabled, onChanged: (value) {
+                        darkThemeEnabled = value;
+                      })),
                   _CustomListTile(
-                    title: "Wi-Fi",
-                    icon: Icons.wifi,
-                    trailing: Switch(value: true, onChanged: (val) {}),
+                      title: "Log out",
+                      icon: Icons.exit_to_app,
+                      onClick: ()  {
+                        log('test');
+                        context.go('/login');},
                   ),
-                  _CustomListTile(
-                    title: "Bluetooth",
-                    icon: Icons.bluetooth,
-                    trailing:
-                    Switch(value: false, onChanged: (val) {}),
-                  ),
-                  const _CustomListTile(
-                    title: "VPN",
-                    icon: Icons.computer,
-                  )
                 ],
               ),
-              const _SingleSection(
-                title: "Privacy and Security",
-                children: [
-                  _CustomListTile(
-                      title: "Multiple Users", icon: Icons.person_2),
-                  _CustomListTile(
-                      title: "Lock Screen", icon: Icons.lock),
-                  _CustomListTile(
-                      title: "Display", icon: Icons.light),
-                  _CustomListTile(
-                      title: "Sound and Vibration",
-                      icon: Icons.speaker),
-                  _CustomListTile(
-                      title: "Themes", icon: Icons.brush)
-                ],
-              ),
+              // const _SingleSection(
+              //   title: "Privacy and Security",
+              //   children: [
+              //     _CustomListTile(
+              //         title: "Multiple Users", icon: Icons.person_2),
+              //     _CustomListTile(
+              //         title: "Lock Screen", icon: Icons.lock),
+              //     _CustomListTile(
+              //         title: "Display", icon: Icons.light),
+              //     _CustomListTile(
+              //         title: "Sound and Vibration",
+              //         icon: Icons.speaker),
+              //     _CustomListTile(
+              //         title: "Themes", icon: Icons.brush)
+              //   ],
+              // ),
             ],
           ),
         ),
@@ -85,17 +74,18 @@ class _CustomListTile extends StatelessWidget {
   final String title;
   final IconData icon;
   final Widget? trailing;
+  final Function()? onClick;
   const _CustomListTile(
-      {Key? key, required this.title, required this.icon, this.trailing})
+      {Key? key, required this.title, required this.icon, this.trailing, this.onClick})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(title),
-      leading: Icon(icon),
-      trailing: trailing ?? const Icon(Icons.forward, size: 18),
-      onTap: () {},
+      return ListTile(
+        title: Text(title),
+        leading: Icon(icon),
+        trailing: trailing ?? const Icon(Icons.forward, size: 18),
+        onTap: onClick,
     );
   }
 }
@@ -112,26 +102,26 @@ class _SingleSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const SizedBox(height: 16),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            title.toUpperCase(),
-            style:
-            Theme.of(context).textTheme.headline3?.copyWith(fontSize: 16),
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 16),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              title.toUpperCase(),
+              style:
+              Theme.of(context).textTheme.headline3?.copyWith(fontSize: 16),
+            ),
           ),
-        ),
-        Container(
-          width: double.infinity,
-          color: Colors.white,
-          child: Column(
-            children: children,
+          Container(
+            width: double.infinity,
+            color: Colors.white,
+            child: Column(
+              children: children,
+            ),
           ),
-        ),
-      ],
+        ],
     );
   }
 }

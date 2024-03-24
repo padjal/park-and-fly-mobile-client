@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:park_and_fly/ui/components/booking_card.dart';
 
 import '../../models/booking.dart';
@@ -21,7 +22,9 @@ class CarsListView extends StatelessWidget {
         itemBuilder: (BuildContext context, int index) {
           if(index == cars.length){
            return InkWell(
-             onTap: () => {},
+             onTap: () => {
+               context.go('/profile/addcar')
+             },
              child: Card(
                child:
                Padding(
