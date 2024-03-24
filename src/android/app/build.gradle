@@ -12,6 +12,19 @@ if (localPropertiesFile.exists()) {
     }
 }
 
+def apikeysProperties = new Properties()
+def apikeysPropertiesFile = rootProject.file('apikeys.properties')
+if (apikeysPropertiesFile.exists()) {
+    apikeysPropertiesFile.withReader('UTF-8') { reader ->
+        apikeysProperties.load(reader)
+    }
+}
+
+def GOOGLE_MAPS_API_KEY = apikeysProperties.getProperty('GOOGLE_MAPS_API_KEY')
+if (GOOGLE_MAPS_API_KEY == null) {
+    GOOGLE_MAPS_API_KEY = ''
+}
+
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
 if (flutterVersionCode == null) {
     flutterVersionCode = '1'
@@ -50,6 +63,8 @@ android {
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+
+        manifestPlaceholders += [mapsApiKey: GOOGLE_MAPS_API_KEY]
     }
 
     buildTypes {
