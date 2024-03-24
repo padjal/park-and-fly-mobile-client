@@ -1,7 +1,7 @@
 class Car{
-  final String carNumber;
-  final String Color;
-  final String type;
+  String carNumber;
+  String color;
+  String type;
 
-  Car(this.carNumber, this.Color, this.type);
+  Car(this.carNumber, this.color, this.type);
 }

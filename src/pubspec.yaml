@@ -46,6 +46,8 @@ dependencies:
   flutter_osm_plugin: ^0.42.0
   permission_handler: ^10.4.5
   carousel_slider: ^4.2.1
+  flutter_hooks: ^0.20.5
+  hooks_riverpod: ^2.5.1
 
 dev_dependencies:
   flutter_test:

@@ -2,20 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:park_and_fly/data/repositories/car_repository.dart';
+import 'package:park_and_fly/providers/cars_provider.dart';
 import 'package:park_and_fly/ui/components/cars_listview.dart';
 
 import '../../models/car.dart';
 
 class ProfileView extends ConsumerWidget {
-  var cars = [
-    Car('CA6754FT', 'red', 'Rav4'),
-    Car('CA6754FT', 'red', 'Rav4'),
-    Car('CA6754FT', 'red', 'Rav4'),
-    Car('CA6754FT', 'red', 'Rav4'),
-  ];
+  // var cars = [
+  //   Car('CA6754FT', 'red', 'Rav4'),
+  //   Car('CA6754FT', 'red', 'Rav4'),
+  //   Car('CA6754FT', 'red', 'Rav4'),
+  //   Car('CA6754FT', 'red', 'Rav4'),
+  // ];
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final cars = ref.watch(carsProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: Text("My Profile"),
@@ -58,7 +62,10 @@ class ProfileView extends ConsumerWidget {
             const Text('Cars', style: TextStyle(
               fontSize: 25
             ),),
-            CarsListView(cars: cars)
+            cars.when(data: (carsData) => CarsListView(cars: carsData,), error: (object, stacktrace) => Text('${stacktrace.toString()}'), loading: () => Center(
+              child: CircularProgressIndicator(),
+            )),
+            //CarsListView(cars: cars)
           ],
         ),
       ),
