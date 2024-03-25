@@ -21,7 +21,7 @@ class AddcarView extends HookConsumerWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             //Text('Car number'),
             // TextField(
@@ -89,29 +89,27 @@ class AddcarView extends HookConsumerWidget {
             ),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 15.0),
-              child: Expanded(
-                child: ElevatedButton(
-                  onPressed: () async {
-                    if(car.value.type == null || car.value.type.isEmpty||
-                        car.value.carNumber == null || car.value.carNumber.isEmpty ||
-                        car.value.color == null || car.value.color.isEmpty){
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Please fill in the car details')));
-                      return;
-                    }
+              child: ElevatedButton(
+                onPressed: () async {
+                  if(car.value.type == null || car.value.type.isEmpty||
+                      car.value.carNumber == null || car.value.carNumber.isEmpty ||
+                      car.value.color == null || car.value.color.isEmpty){
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Please fill in the car details')));
+                    return;
+                  }
 
-                    var result = await carsRepository.addCar(car.value);
+                  var result = await carsRepository.addCar(car.value);
 
-                    if(result){
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Car added successfully')));
-                    }else{
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Could not add car')));
-                    }
-                  },
-                  child: const Text('Add car'),
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0)),
-                  ),
+                  if(result){
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Car added successfully')));
+                  }else{
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Could not add car')));
+                  }
+                },
+                child: const Text('Add car'),
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0)),
                 ),
               ),
             ),

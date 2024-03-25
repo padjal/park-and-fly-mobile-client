@@ -35,15 +35,13 @@ class LoginView extends ConsumerWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 15.0),
-                child: Expanded(
-                  child: ElevatedButton(
-                    onPressed: () => context.go('/parkings'),
-                    child: const Text('Login'),
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0)),
-                    ),
+                padding: const EdgeInsets.symmetric(vertical: 15.0),
+                child: ElevatedButton(
+                  onPressed: () => context.go('/parkings'),
+                  child: const Text('Login'),
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0)),
                   ),
                 ),
               ),
