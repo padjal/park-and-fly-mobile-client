@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class LoginView extends ConsumerWidget {
+class LoginView extends HookConsumerWidget {
   const LoginView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final passwordVisible = useState<bool>(false);
+
     return Scaffold(
       appBar: AppBar(),
       body: Center(
@@ -17,8 +21,19 @@ class LoginView extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20.0),
+                child: Text('Login', style: TextStyle(fontSize: 35),),
+              ),
+              Padding(
                 padding: const EdgeInsets.symmetric(vertical: 5.0),
-                child: TextField(
+                child: TextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (value) {
+                    if(value == null || value.isEmpty || !value.contains('@') || !value.contains('.')){
+                      return 'Invalid Email';
+                    }
+                    return null;
+                  },
                   decoration: const InputDecoration(
                       hintText: 'Email',
                       prefixIcon: Icon(Icons.email),
@@ -28,10 +43,35 @@ class LoginView extends ConsumerWidget {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 5.0),
-                child: TextField(
-                  decoration: const InputDecoration(hintText: 'Password',
+                child: TextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (value){
+                    if (value == null || value.isEmpty) {
+                      return 'Password cannot be empty';
+                    }
+
+                    if (value.length < 6){
+                      return 'Password must contain at least 6 symbols';
+                    }
+                    return null;
+                  },
+                  obscureText: !passwordVisible.value,
+                  decoration: InputDecoration(hintText: 'Password',
                   prefixIcon: Icon(Icons.password),
-                  border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(10.0)))),
+                  border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        // Based on passwordVisible state choose the icon
+                        passwordVisible.value
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                      ),
+                      onPressed: () {
+                        // Update the state i.e. toogle the state of passwordVisible variable
+                        passwordVisible.value = !passwordVisible.value;
+
+                      },
+                    ),),
                 ),
               ),
               Padding(
