@@ -1,19 +1,26 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:park_and_fly/ui/controllers/registration_view_controller.dart';
 
-class RegistrationView extends ConsumerWidget{
+import '../../models/user.dart';
+
+class RegistrationView extends HookConsumerWidget{
   const RegistrationView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final isBusy = useState(false);
+
     return Scaffold(
       appBar: AppBar(),
       body: Center(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 15.0),
-          child: Column(
+          child: !isBusy.value ? Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -39,9 +46,20 @@ class RegistrationView extends ConsumerWidget{
                 padding: EdgeInsets.symmetric(vertical: 15.0),
                 child: Expanded(
                   child: ElevatedButton(
-                    onPressed: () {
-                      // context.go('/sectionA');
-                      context.go('/parkings');
+                    onPressed: () async {
+                      //Create a user
+                      isBusy.value = true;
+                      var user = User(email: "tester6@example.com", password: "Password123!");
+                      var isLoginSuccessful = await ref
+                          .read(registrationViewControllerProvider.notifier)
+                          .register(user);
+                      if (isLoginSuccessful){
+                        isBusy.value = false;
+                        context.go('/parkings');
+                      }else{
+                        isBusy.value = false;
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Could not log in')));
+                      }
                     },
                     child: const Text('Register'),
                     style: ElevatedButton.styleFrom(
@@ -52,7 +70,7 @@ class RegistrationView extends ConsumerWidget{
                 ),
               ),
             ],
-          ),
+          ) : CircularProgressIndicator(),
         ),
       ),
     );
