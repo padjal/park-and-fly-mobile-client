@@ -58,7 +58,7 @@ class RegistrationView extends HookConsumerWidget{
                         context.go('/parkings');
                       }else{
                         isBusy.value = false;
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Could not log in')));
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Could not register')));
                       }
                     },
                     child: const Text('Register'),

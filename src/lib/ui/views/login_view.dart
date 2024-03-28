@@ -132,7 +132,20 @@ class LoginView extends HookConsumerWidget {
                           onTap: () => context.go('/login/register'),
                         )
                       ],
-                    )
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 15.0),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          context.go('/parkings');
+                        },
+                        child: const Text('Dev Login'),
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8.0)),
+                        ),
+                      ),
+                    ),
                   ],
                 )
               : CircularProgressIndicator(),

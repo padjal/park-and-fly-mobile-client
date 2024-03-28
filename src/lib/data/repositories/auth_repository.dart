@@ -30,16 +30,22 @@ class AuthRepositoryImpl implements AuthRepository{
         headers: {"Content-Type": "application/json"},
         body: jsonEncode(user));
 
-    var response = await request;
+    try{
+      var response = await request.timeout(Duration(seconds: 3));
 
-    if (response.statusCode == 200) {
-      // User is registered successfully
-      // TODO: Auto login?
-      return true;
-    } else {
-      log(response.headers.toString());
-      log(response.statusCode.toString());
-      log(response.body);
+      if (response.statusCode == 200) {
+        // User is registered successfully
+        // TODO: Auto login?
+        return true;
+      } else {
+        log(response.headers.toString());
+        log(response.statusCode.toString());
+        log(response.body);
+        return false;
+      }
+    }on Exception catch (e){
+      log('$e');
+
       return false;
     }
   }
@@ -50,16 +56,21 @@ class AuthRepositoryImpl implements AuthRepository{
         headers: {"Content-Type": "application/json"},
         body: jsonEncode(user));
 
-    var response = await request;
+    try {
+      var response = await request.timeout(Duration(seconds: 3));
 
-    if (response.statusCode == 200) {
-      // If the server did return a 200 OK response,
-      // then parse the JSON.
-      return true;
-    } else {
-      log(response.headers.toString());
-      log(response.statusCode.toString());
-      log(response.body);
+      if (response.statusCode == 200) {
+        // If the server did return a 200 OK response,
+        // then parse the JSON.
+        return true;
+      } else {
+        log(response.headers.toString());
+        log(response.statusCode.toString());
+        log(response.body);
+        return false;
+      }
+    } on Exception catch (e) {
+      log('$e');
       return false;
     }
   }
