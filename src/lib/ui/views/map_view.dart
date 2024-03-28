@@ -15,7 +15,7 @@ class MapView extends StatelessWidget {
       icon: Icon(
         Icons.location_on,
         color: Colors.blue,
-        size: 60,
+        size: 150,
       ));
 
       var _staticPoints = [
