@@ -23,7 +23,7 @@ class CarsScrollSnapList extends HookConsumerWidget{
         onItemFocus: (index) {focusedIndex.value = index;
           log(index.toString());
           },
-        itemSize: 250,
+        itemSize: 220,
         duration: 100,
         // itemBuilder: (BuildContext context, int index) => CarCard(car: cars[index]) ,
         itemBuilder: _buildListItem ,
@@ -42,7 +42,7 @@ class CarsScrollSnapList extends HookConsumerWidget{
         children: <Widget>[
           Container(
             height: 150,
-            width: 250,
+            width: 220,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
               color: Colors.black12

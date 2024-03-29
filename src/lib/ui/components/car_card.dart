@@ -19,7 +19,7 @@ class CarCard extends StatelessWidget{
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Icon(Icons.two_wheeler_outlined, size: 50,),
+              Icon(Icons.car_rental, size: 50,),
               Text(car.carNumber, style: TextStyle(
                 fontSize: 20
               ),),

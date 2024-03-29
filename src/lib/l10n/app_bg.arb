@@ -1,0 +1,9 @@
+{
+  "helloWorld": "Здравей, свят!",
+  "myProfileHeader": "Профил",
+  "settingsHeader": "Настройки",
+  "darkModeToggle": "Тъмна тема",
+  "aboutApp": "За приложението",
+  "languageSettings": "Език",
+  "logOut": "Излизане"
+}

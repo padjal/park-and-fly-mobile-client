@@ -9,8 +9,8 @@ abstract class CarRepository{
 class CarRepositoryImpl implements CarRepository{
   final cars = [
     Car('CA4534HT', 'Red', 'RAV4'),
-    Car('CA4534HT', 'Red', 'RAV4'),
-    Car('CA4534HT', 'Red', 'RAV4'),
+    Car('CB7864GT', 'Blue', 'Auris'),
+    Car('EH7639VF', 'Yellow', 'Land Cruiser'),
     Car('CA4534HT', 'Red', 'RAV4'),
     Car('CA4534HT', 'Red', 'RAV4'),
   ];

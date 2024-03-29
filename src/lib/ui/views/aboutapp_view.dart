@@ -8,12 +8,19 @@ class AboutAppView extends StatelessWidget {
       appBar: AppBar(
         title: Text('About app'),
       ),
-      body: RichText(
-        text: TextSpan(
-          style: DefaultTextStyle.of(context).style,
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
           children: [
-            TextSpan(text: 'About our app')
-          ]
+            RichText(
+              text: TextSpan(
+                style: DefaultTextStyle.of(context).style,
+                children: [
+                  TextSpan(text: 'About our app')
+                ]
+              ),
+            ),
+          ],
         ),
       ),
     );

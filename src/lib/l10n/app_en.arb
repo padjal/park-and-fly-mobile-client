@@ -1,0 +1,18 @@
+{
+  "helloWorld": "Hello World!",
+  "@helloWorld": {
+    "description": "The conventional newborn programmer greeting"
+  },
+  "myProfileHeader": "My profile",
+  "@myProfileHeader": {
+    "description": "Header of the profile view page."
+  },
+  "settingsHeader": "Settings",
+  "@settingsHeader": {
+    "description": "Header of the settings view page."
+  },
+  "darkModeToggle": "Dark mode",
+  "aboutApp": "About app",
+  "languageSettings": "Language",
+  "logOut": "Log out"
+}

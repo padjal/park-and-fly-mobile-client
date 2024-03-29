@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:park_and_fly/ui/controllers/login_view_controller.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../models/user.dart';
 
 class LoginView extends HookConsumerWidget {
@@ -31,7 +31,7 @@ class LoginView extends HookConsumerWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 20.0),
                       child: Text(
-                        'Login',
+                        AppLocalizations.of(context)!.helloWorld,
                         style: TextStyle(fontSize: 35),
                       ),
                     ),
