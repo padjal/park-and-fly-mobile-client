@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:park_and_fly/ui/components/parking_card.dart';
 
 import '../../models/parking.dart';
@@ -30,6 +31,12 @@ class ParkingsView extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Parkings'),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 30.0),
+            child: IconButton(icon: Icon(Icons.filter_alt, size: 30,), onPressed: () { context.go('/parkings/list/filter'); },),
+          ),
+        ]
       ),
       body: ListView.builder(
         itemCount: parkings.length,

@@ -7,6 +7,7 @@ import 'package:park_and_fly/ui/views/addcar_view.dart';
 import 'package:park_and_fly/ui/views/booking_details_view.dart';
 import 'package:park_and_fly/ui/views/bookings_view.dart';
 import 'package:park_and_fly/ui/views/map_view.dart';
+import 'package:park_and_fly/ui/views/parkings_filter_view.dart';
 import 'package:park_and_fly/ui/views/review_reservation_view.dart';
 
 import '../models/parking.dart';
@@ -51,7 +52,8 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                   return ReservationReviewView(
                     booking: reservation as Booking,
                   );
-                },),
+                },
+              ),
               // top route inside branch
               GoRoute(
                   path: '/parkings',
@@ -60,11 +62,18 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                       ),
                   routes: [
                     GoRoute(
-                      path: 'list',
-                      pageBuilder: (context, state) => NoTransitionPage(
-                        child: ParkingsView(),
-                      ),
-                    ),
+                        path: 'list',
+                        pageBuilder: (context, state) => NoTransitionPage(
+                              child: ParkingsView(),
+                            ),
+                        routes: [
+                          GoRoute(
+                            path: 'filter',
+                            pageBuilder: (context, state) => NoTransitionPage(
+                              child: ParkingsFilterView(),
+                            ),
+                          )
+                        ]),
                     GoRoute(
                       path: ':id',
                       builder: (BuildContext context, GoRouterState state) {
@@ -90,20 +99,18 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             routes: [
               // top route inside branch
               GoRoute(
-                path: '/bookings',
-                pageBuilder: (context, state) => NoTransitionPage(
-                  child: BookingsView(),
-                ),
-                routes:
-                  [
+                  path: '/bookings',
+                  pageBuilder: (context, state) => NoTransitionPage(
+                        child: BookingsView(),
+                      ),
+                  routes: [
                     GoRoute(
                       path: 'details',
                       pageBuilder: (context, state) => NoTransitionPage(
                         child: BookingDetailsView(),
                       ),
                     )
-                  ]
-              ),
+                  ]),
             ],
           ),
           StatefulShellBranch(
@@ -117,16 +124,16 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                 routes: [
                   // child route
                   GoRoute(
-                    path: 'settings',
-                    builder: (context, state) => SettingsView(),
-                    routes: [
-                      GoRoute(path: 'about',
+                      path: 'settings',
+                      builder: (context, state) => SettingsView(),
+                      routes: [
+                        GoRoute(
+                          path: 'about',
                           pageBuilder: (context, state) => NoTransitionPage(
                             child: AboutAppView(),
                           ),
                         )
-                    ]
-                  ),
+                      ]),
                   GoRoute(
                     path: 'addcar',
                     builder: (context, state) => AddcarView(),
