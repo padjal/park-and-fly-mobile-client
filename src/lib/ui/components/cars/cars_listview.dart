@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:park_and_fly/ui/components/booking_card.dart';
 
-import '../../models/booking.dart';
-import '../../models/car.dart';
-import 'car_card.dart';
+import '../../../models/booking.dart';
+import '../../../models/car.dart';
+import '../car_card.dart';
 
 class CarsListView extends StatelessWidget {
-  const CarsListView({super.key, required this.cars});
-
+  const CarsListView({super.key, required this.cars, this.isAddCarButtonEnabled = false});
+  final bool isAddCarButtonEnabled;
   final List<Car> cars;
 
   @override
@@ -18,7 +18,7 @@ class CarsListView extends StatelessWidget {
       height: 200,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: cars.length + 1,
+        itemCount: isAddCarButtonEnabled ? cars.length + 1 : cars.length,
         itemBuilder: (BuildContext context, int index) {
           if(index == cars.length){
            return InkWell(

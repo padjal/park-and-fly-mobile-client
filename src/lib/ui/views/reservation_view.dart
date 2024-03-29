@@ -1,10 +1,16 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:park_and_fly/models/booking.dart';
+import 'package:park_and_fly/ui/components/cars/cars_scroll_snap_list.dart';
 
 import '../../models/parking.dart';
+import '../../providers/cars_provider.dart';
+import '../components/cars/cars_listview.dart';
 
 class ReservationView extends HookConsumerWidget {
   final String? parkingId;
@@ -16,10 +22,11 @@ class ReservationView extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final dateFrom = useState<DateTime>(DateTime.now());
-    final dateTo = useState<DateTime>(DateTime.now().add(Duration(days: 3)));
-    final timeFrom = useState<TimeOfDay>(TimeOfDay.now());
-    final timeTo = useState<TimeOfDay>(TimeOfDay.now());
+    final cars = ref.watch(carsProvider);
+    final from = useState<DateTime>(DateTime.now());
+    final to = useState<DateTime>(DateTime.now().add(Duration(days: 3)));
+    final focusedIndex = useState(0);
+    final isChecking = useState(false);
 
     return Scaffold(
       appBar: AppBar(
@@ -28,6 +35,7 @@ class ReservationView extends HookConsumerWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Padding(
@@ -71,28 +79,46 @@ class ReservationView extends HookConsumerWidget {
                         onTap: () async {
                           var selectedTime = await _selectTime(context);
 
-                          timeFrom.value = selectedTime as TimeOfDay;
+                          isChecking.value = true;
+                          await Future.delayed(Duration(seconds: 1));
+                          from.value = from.value.copyWith(hour: selectedTime?.hour, minute: selectedTime?.minute);
+
+                          if(from.value.difference(to.value) < Duration(days: 3)|| from.value.compareTo(to.value) >= 0){
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Minimal stay is three days!'), backgroundColor: Colors.redAccent,));
+                            to.value = from.value.add(Duration(days: 3));
+                          }
+                          isChecking.value = false;
+
+                          // timeFrom.value = selectedTime as TimeOfDay;
                         },
-                        child: Text(_formatTime(timeFrom.value),
+                        child: Text(_formatTime(from.value),
                             style: TextStyle(fontSize: 40)),
                       ),
                       InkWell(
                         onTap: () async {
                           var selectedTime = await _selectDate(context);
 
-                          dateFrom.value = selectedTime as DateTime;
+                          isChecking.value = true;
+                          await Future.delayed(Duration(seconds: 1));
+                          from.value = from.value.copyWith(year: selectedTime?.year, month: selectedTime?.month, day: selectedTime?.day);
+
+                          if(from.value.difference(to.value) < Duration(days: 3)|| from.value.compareTo(to.value) >= 0){
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Minimal stay is three days!'), backgroundColor: Colors.redAccent,));
+                            to.value = from.value.add(Duration(days: 3));
+                          }
+                          isChecking.value = false;
                         },
-                        child: Text(_formatDate(dateFrom.value),
+                        child: Text(_formatDate(from.value),
                             style: TextStyle(fontSize: 25)),
                       ),
                     ],
                   ),
-                  Column(
+                  !isChecking.value ? const Column(
                     children: [
                       Icon(Icons.check, size: 50, color: Colors.green,),
                       Text('Available')
                     ],
-                  ),
+                  ) : CircularProgressIndicator(),
                   Column(
                     children: [
                       Text('To'),
@@ -100,17 +126,33 @@ class ReservationView extends HookConsumerWidget {
                         onTap: () async {
                           var selectedTime = await _selectTime(context);
 
-                          timeTo.value = selectedTime as TimeOfDay;
+                          isChecking.value = true;
+                          await Future.delayed(Duration(seconds: 1));
+                          to.value = to.value.copyWith(hour: selectedTime?.hour, minute: selectedTime?.minute);
+
+                          if(from.value.difference(to.value) < Duration(days: 3) || from.value.compareTo(to.value) >= 0){
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Minimal stay is three days!'), backgroundColor: Colors.redAccent,));
+                            to.value = from.value.add(Duration(days: 3));
+                          }
+                          isChecking.value = false;
                         },
-                          child: Text(_formatTime(timeTo.value),
+                          child: Text(_formatTime(to.value),
                               style: TextStyle(fontSize: 40))),
                       InkWell(
                         onTap: () async {
                           var selectedTime = await _selectDate(context);
 
-                          dateTo.value = selectedTime as DateTime;
+                          isChecking.value = true;
+                          await Future.delayed(Duration(seconds: 1));
+                          to.value = to.value.copyWith(year: selectedTime?.year, month: selectedTime?.month, day: selectedTime?.day);
+
+                          if(from.value.difference(to.value) < Duration(days: 3)|| from.value.compareTo(to.value) >= 0){
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Minimal stay is three days!'), backgroundColor: Colors.redAccent,));
+                            to.value = from.value.add(Duration(days: 3));
+                          }
+                          isChecking.value = false;
                         },
-                        child: Text(_formatDate(dateTo.value),
+                        child: Text(_formatDate(to.value),
                             style: TextStyle(fontSize: 25)),
                       ),
                     ],
@@ -124,27 +166,36 @@ class ReservationView extends HookConsumerWidget {
                 ],
               ),
             ),
+            cars.when(data: (carsData) => CarsScrollSnapList(cars: carsData, focusedIndex: focusedIndex,), error: (object, stacktrace) => Text('${stacktrace.toString()}'), loading: () => Center(
+              child: CircularProgressIndicator(),
+            )),
             Row(children: [
               Text('Minimal days stay: '),
               Text('3')
             ],),
             Row(children: [
               Text('Currently selected days: '),
-              Text('${dateTo.value.difference(dateFrom.value).inDays}')
+              Text('${to.value.difference(from.value).inDays}')
             ],),
             Row(children: [
               Text('Price: '),
-              Text('${dateTo.value.difference(dateFrom.value).inDays*25} EUR')
+              Text('${to.value.difference(from.value).inDays*25} EUR')
             ],),
-
+            Row(children: [
+              Text('Index: '),
+              Text('${focusedIndex.value}')
+            ],),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 15.0),
               child: Expanded(
                 child: ElevatedButton(
                   onPressed: () {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Reservation added successfully')));
+                    // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Reservation added successfully')));
+                    // final from =
+                    final booking = Booking('bookingId', parkingId!, to.value, from.value, cars.value![focusedIndex.value].carNumber);
+                    context.push('/review', extra: booking);
                   },
-                  child: const Text('Reserve'),
+                  child: const Text('Review'),
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0)),
@@ -159,11 +210,15 @@ class ReservationView extends HookConsumerWidget {
   }
 
   _formatDate(DateTime dateTime) {
-    return '${dateTime.day}-${dateTime.month}-${dateTime.day}';
+    return '${dateTime.day}-${dateTime.month}-${dateTime.year}';
   }
 
-  _formatTime(TimeOfDay timeOfDay) {
-    return '${timeOfDay.hour}:${timeOfDay.minute}';
+  _formatTime(DateTime from) {
+    return '${from.hour}:${from.minute}';
+  }
+
+  Future<void> checkAvailability() async{
+
   }
 
   Future<DateTime?> _selectDate(BuildContext context) async {

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:park_and_fly/models/booking.dart';
 import 'package:park_and_fly/ui/views/aboutapp_view.dart';
 import 'package:park_and_fly/ui/views/addcar_view.dart';
+import 'package:park_and_fly/ui/views/booking_details_view.dart';
 import 'package:park_and_fly/ui/views/bookings_view.dart';
 import 'package:park_and_fly/ui/views/map_view.dart';
+import 'package:park_and_fly/ui/views/review_reservation_view.dart';
 
 import '../models/parking.dart';
 import '../ui/components/scaffold_with_nested_navigation.dart';
@@ -41,6 +44,14 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         branches: [
           StatefulShellBranch(
             routes: [
+              GoRoute(
+                path: '/review',
+                builder: (BuildContext context, GoRouterState state) {
+                  final reservation = state.extra;
+                  return ReservationReviewView(
+                    booking: reservation as Booking,
+                  );
+                },),
               // top route inside branch
               GoRoute(
                   path: '/parkings',
@@ -83,6 +94,15 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                 pageBuilder: (context, state) => NoTransitionPage(
                   child: BookingsView(),
                 ),
+                routes:
+                  [
+                    GoRoute(
+                      path: 'details',
+                      pageBuilder: (context, state) => NoTransitionPage(
+                        child: BookingDetailsView(),
+                      ),
+                    )
+                  ]
               ),
             ],
           ),

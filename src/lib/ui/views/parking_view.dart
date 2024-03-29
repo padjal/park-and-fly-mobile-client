@@ -35,7 +35,7 @@ class ParkingView extends StatelessWidget{
                             color: Colors.black12,
                           borderRadius: BorderRadius.circular(10)
                         ),
-                        child: Image.network('https://assets-global.website-files.com/621f6615a4c8a1d5166a4362/62615ca29b7d0a31079ac32e_smart%20parking.jpeg', fit: BoxFit.cover,)
+                        child: Image.asset('assets/images/parking.jpeg', fit: BoxFit.cover,)
                     ),
                   );
                 },
