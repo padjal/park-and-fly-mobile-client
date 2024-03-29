@@ -124,15 +124,13 @@ class ParkingView extends StatelessWidget {
                     ]),
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 15.0),
-                      child: Expanded(
-                        child: ElevatedButton(
-                          onPressed: () =>
-                              context.go('/parkings/reservation/${parkingId}'),
-                          child: const Text('Book now'),
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8.0)),
-                          ),
+                      child: ElevatedButton(
+                        onPressed: () =>
+                            context.go('/parkings/reservation/${parkingId}'),
+                        child: const Text('Book now'),
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8.0)),
                         ),
                       ),
                     ),

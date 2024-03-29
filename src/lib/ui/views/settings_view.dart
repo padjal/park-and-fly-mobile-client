@@ -15,10 +15,10 @@ class SettingsView extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final darkThemeEnabled = useState(false);
     var theme = ref.read(themeProvider);
     final locale = ref.watch(localeProvider);
     final localeState = useState(locale.currentLocale.languageCode);
+    final darkThemeEnabled = useState(theme.isDarkThemeEnabled);
 
     return Scaffold(
       appBar: AppBar(

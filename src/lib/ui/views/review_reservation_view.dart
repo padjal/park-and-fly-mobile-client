@@ -84,24 +84,23 @@ class ReservationReviewView extends HookConsumerWidget{
               ),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 15.0),
-                child: Expanded(
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      isBusy.value = true;
-                      await Future.delayed(Duration(seconds: 1));
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Payment successful'), backgroundColor: Colors.green,));
-                      isBusy.value = false;
+                child: ElevatedButton(
+                  onPressed: () async {
+                    isBusy.value = true;
+                    await Future.delayed(Duration(seconds: 1));
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Payment successful'), backgroundColor: Colors.green,));
+                    isBusy.value = false;
 
-                      context.go('/parkings');
-                    },
-                    child: const Text('Pay'),
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0)),
-                    ),
+                    context.go('/parkings');
+                  },
+                  child: const Text('Pay'),
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0)),
                   ),
                 ),
               ),
+              Spacer()
             ],
           ),
         ): CircularProgressIndicator(),

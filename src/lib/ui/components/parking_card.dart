@@ -25,20 +25,18 @@ class ParkingCard extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Icon(Icons.local_parking),
               ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(parking.name,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                          fontSize: 18
-                        ),),
-                      Text(parking.address)
-                    ],
-                  ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(parking.name,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        fontSize: 18
+                      ),),
+                    Text(parking.address)
+                  ],
                 ),
               ),
               Padding(

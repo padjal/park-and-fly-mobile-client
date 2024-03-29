@@ -191,26 +191,24 @@ class ReservationView extends HookConsumerWidget {
               ],),
               Row(children: [
                 Text('Car: '),
-                Text('${cars.value![focusedIndex.value].carNumber}')
+                Text('${cars.value?[focusedIndex.value].carNumber}')
               ],),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 15.0),
-                child: Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      if(!isAvailable.value){
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Selected time is not available'), backgroundColor: Colors.redAccent,));
-                        return;
-                      }
+                child: ElevatedButton(
+                  onPressed: () {
+                    if(!isAvailable.value){
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Selected time is not available'), backgroundColor: Colors.redAccent,));
+                      return;
+                    }
 
-                      final booking = Booking('bookingId', parkingId!, to.value, from.value, cars.value![focusedIndex.value].carNumber);
-                      context.push('/review', extra: booking);
-                    },
-                    child: const Text('Review'),
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0)),
-                    ),
+                    final booking = Booking('bookingId', parkingId!, to.value, from.value, cars.value![focusedIndex.value].carNumber);
+                    context.push('/review', extra: booking);
+                  },
+                  child: const Text('Review'),
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0)),
                   ),
                 ),
               ),

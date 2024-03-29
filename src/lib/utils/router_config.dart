@@ -86,7 +86,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                     GoRoute(
                       path: 'reservation/:id',
                       builder: (BuildContext context, GoRouterState state) {
-                        final id = state.pathParameters['id']!;
+                        final id = state.pathParameters['id'];
                         return ReservationView(
                           parkingId: id,
                         );

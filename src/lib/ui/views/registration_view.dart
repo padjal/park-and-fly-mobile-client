@@ -44,28 +44,26 @@ class RegistrationView extends HookConsumerWidget{
               ),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 15.0),
-                child: Expanded(
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      //Create a user
-                      isBusy.value = true;
-                      var user = User(email: "tester6@example.com", password: "Password123!");
-                      var isLoginSuccessful = await ref
-                          .read(registrationViewControllerProvider.notifier)
-                          .register(user);
-                      if (isLoginSuccessful){
-                        isBusy.value = false;
-                        context.go('/parkings');
-                      }else{
-                        isBusy.value = false;
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Could not register')));
-                      }
-                    },
-                    child: const Text('Register'),
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0)),
-                    ),
+                child: ElevatedButton(
+                  onPressed: () async {
+                    //Create a user
+                    isBusy.value = true;
+                    var user = User(email: "tester6@example.com", password: "Password123!");
+                    var isLoginSuccessful = await ref
+                        .read(registrationViewControllerProvider.notifier)
+                        .register(user);
+                    if (isLoginSuccessful){
+                      isBusy.value = false;
+                      context.go('/parkings');
+                    }else{
+                      isBusy.value = false;
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Could not register')));
+                    }
+                  },
+                  child: const Text('Register'),
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0)),
                   ),
                 ),
               ),
