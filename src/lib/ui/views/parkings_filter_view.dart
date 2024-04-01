@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Filter{
   String label;
@@ -25,14 +26,14 @@ class ParkingsFilterView extends HookConsumerWidget {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text('Filter parkings'),
+          title: Text(AppLocalizations.of(context)!.filter),
         ),
         body: !_isBusy.value ? Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text('City', style: TextStyle(fontSize: 25)),
+              Text(AppLocalizations.of(context)!.city, style: TextStyle(fontSize: 25)),
               InputDecorator(decoration: InputDecoration(border: OutlineInputBorder()),
               child: DropdownButton<String>(isExpanded:true,
                 isDense: true,

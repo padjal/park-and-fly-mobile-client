@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:park_and_fly/ui/components/parking_card.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../models/parking.dart';
 
@@ -30,7 +31,7 @@ class ParkingsView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Parkings'),
+        title: Text(AppLocalizations.of(context)!.parkings),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 30.0),

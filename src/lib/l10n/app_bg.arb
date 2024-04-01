@@ -1,9 +1,26 @@
 {
   "helloWorld": "Здравей, свят!",
+  "login": "Вход",
   "myProfileHeader": "Профил",
   "settingsHeader": "Настройки",
   "darkModeToggle": "Тъмна тема",
   "aboutApp": "За приложението",
   "languageSettings": "Език",
-  "logOut": "Излизане"
+  "logOut": "Излизане",
+  "email": "Имейл",
+  "password": "Парола",
+  "noAccountYet": "Все още нямаш регистрация?",
+  "register": "Регистрирай се",
+  "map": "Карта",
+  "parkings": "Паркинги",
+  "bookings": "Резервации",
+  "profile": "Профил",
+  "city": "Град",
+  "facilities": "Удобства",
+  "filter": "Филтър",
+  "upcoming": "Бъдещи",
+  "previous": "Минали",
+  "cancelled": "Отменени",
+  "cars": "Коли",
+  "general": "Общи"
 }

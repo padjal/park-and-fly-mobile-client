@@ -3,6 +3,7 @@
   "@helloWorld": {
     "description": "The conventional newborn programmer greeting"
   },
+  "login": "Login",
   "myProfileHeader": "My profile",
   "@myProfileHeader": {
     "description": "Header of the profile view page."
@@ -14,5 +15,21 @@
   "darkModeToggle": "Dark mode",
   "aboutApp": "About app",
   "languageSettings": "Language",
-  "logOut": "Log out"
+  "logOut": "Log out",
+  "email": "Email",
+  "password": "Password",
+  "noAccountYet": "Don't have and account yet?",
+  "register": "Register",
+  "map": "Map",
+  "parkings": "Parkings",
+  "bookings": "Bookings",
+  "profile": "Profile",
+  "city": "City",
+  "facilities": "Facilities",
+  "filter": "Filter",
+  "upcoming": "Upcoming",
+  "previous": "Previous",
+  "cancelled": "Cancelled",
+  "cars": "Cars",
+  "general": "General"
 }

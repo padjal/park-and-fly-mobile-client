@@ -7,7 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:park_and_fly/ui/themes/theme_provider.dart';
-import 'package:park_and_fly/utils/locale_provider.dart';
+import 'package:park_and_fly/providers/application_settings_provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SettingsView extends HookConsumerWidget {
@@ -15,10 +15,11 @@ class SettingsView extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var theme = ref.read(themeProvider);
-    final locale = ref.watch(localeProvider);
-    final localeState = useState(locale.currentLocale.languageCode);
-    final darkThemeEnabled = useState(theme.isDarkThemeEnabled);
+    // var theme = ref.read(themeProvider);
+    //final locale = ref.watch(localeProvider);
+    //final localeState = useState(locale.currentLocale.languageCode);
+    // final darkThemeEnabled = useState(theme.isDarkThemeEnabled);
+    final applicationSettings = ref.watch(applicationSettingsProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -31,7 +32,7 @@ class SettingsView extends HookConsumerWidget {
           child: ListView(
             children: [
               _SingleSection(
-                title: "General",
+                title: AppLocalizations.of(context)!.general,
                 children: [
                   _CustomListTile(
                     title: AppLocalizations.of(context)!.aboutApp,
@@ -44,18 +45,19 @@ class SettingsView extends HookConsumerWidget {
                       title: AppLocalizations.of(context)!.darkModeToggle,
                       icon: Icons.nightlight_outlined,
                       trailing: Switch(
-                          value: darkThemeEnabled.value,
+                          value: applicationSettings.isDarkModeEnabled,
                           onChanged: (value) {
-                            darkThemeEnabled.value = value;
-                            darkThemeEnabled.value
-                                ? theme.toggleDark()
-                                : theme.toggleLight();
+                            applicationSettings.changeTheme();
+                            // darkThemeEnabled.value = value;
+                            // darkThemeEnabled.value
+                            //     ? theme.toggleDark()
+                            //     : theme.toggleLight();
                           })),
                   _CustomListTile(
                     title: AppLocalizations.of(context)!.languageSettings,
                     icon: Icons.language,
                     trailing: DropdownButton<String>(
-                      value: localeState.value,
+                      value: applicationSettings.currentLocale.languageCode,
                       items: [
                         DropdownMenuItem<String>(
                             child: Text('🇺🇸 en'), value: 'en'),
@@ -65,8 +67,8 @@ class SettingsView extends HookConsumerWidget {
                             child: Text('🇷🇺 ru'), value: 'ru'),
                       ],
                       onChanged: (Object? value) {
-                        localeState.value = value.toString();
-                        locale.changeLocale(value.toString());
+                        // localeState.value = value.toString();
+                        applicationSettings.changeLocale(value.toString());
                       },
                     ),
                     // onClick: ()  {

@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../models/parking.dart';
 
@@ -82,7 +83,7 @@ class ParkingView extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(top: 15.0),
                       child: Text(
-                        'Facilities',
+                        AppLocalizations.of(context)!.facilities,
                         style:
                             TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
                       ),

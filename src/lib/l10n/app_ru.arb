@@ -1,9 +1,26 @@
 {
   "helloWorld": "Здраствуй, мир!",
+  "login": "Вход",
   "myProfileHeader": "Профиль",
   "settingsHeader": "Настройки",
   "darkModeToggle": "Тёмная тема",
   "aboutApp": "Об приложении",
   "languageSettings": "Язык",
-  "logOut": "Выход"
+  "logOut": "Выход",
+  "email": "Имейл",
+  "password": "Пароль",
+  "noAccountYet": "Don't have and account yet?",
+  "register": "Регистрация",
+  "map": "Карта",
+  "parkings": "Парковки",
+  "bookings": "Резервации",
+  "profile": "Профиль",
+  "city": "Город",
+  "facilities": "Удобства",
+  "filter": "Фильтр",
+  "upcoming": "Будущие",
+  "previous": "Прошедшие",
+  "cancelled": "Отменены",
+  "cars": "Машины",
+  "general": "Общие"
 }

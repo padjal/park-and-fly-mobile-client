@@ -22,7 +22,7 @@ class LoginView extends HookConsumerWidget {
       appBar: AppBar(),
       body: Center(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15.0),
+          padding: const EdgeInsets.symmetric(horizontal: 15.0),
           child: !isBusy.value
               ? Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -31,8 +31,8 @@ class LoginView extends HookConsumerWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 20.0),
                       child: Text(
-                        AppLocalizations.of(context)!.helloWorld,
-                        style: TextStyle(fontSize: 35),
+                        AppLocalizations.of(context)!.login,
+                        style: const TextStyle(fontSize: 35),
                       ),
                     ),
                     Padding(
@@ -48,10 +48,10 @@ class LoginView extends HookConsumerWidget {
                           }
                           return null;
                         },
-                        decoration: const InputDecoration(
-                            hintText: 'Email',
-                            prefixIcon: Icon(Icons.email),
-                            border: OutlineInputBorder(
+                        decoration: InputDecoration(
+                            hintText: AppLocalizations.of(context)!.email,
+                            prefixIcon: const Icon(Icons.email),
+                            border: const OutlineInputBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10.0)))),
                       ),
@@ -72,9 +72,9 @@ class LoginView extends HookConsumerWidget {
                         },
                         obscureText: !passwordVisible.value,
                         decoration: InputDecoration(
-                          hintText: 'Password',
-                          prefixIcon: Icon(Icons.password),
-                          border: OutlineInputBorder(
+                          hintText: AppLocalizations.of(context)!.password,
+                          prefixIcon: const Icon(Icons.password),
+                          border: const OutlineInputBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10.0))),
                           suffixIcon: IconButton(
@@ -107,26 +107,26 @@ class LoginView extends HookConsumerWidget {
                             context.go('/parkings');
                           }else{
                             isBusy.value = false;
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Could not log in')));
+                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Could not log in')));
                           }
                         },
-                        child: const Text('Login'),
                         style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8.0)),
                         ),
+                        child: Text(AppLocalizations.of(context)!.login),
                       ),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text('Don\'t have an account yet?'),
+                        Text(AppLocalizations.of(context)!.noAccountYet),
                         InkWell(
-                          child: const Padding(
-                            padding: EdgeInsets.only(left: 4.0),
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 4.0),
                             child: Text(
-                              'Register',
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                              AppLocalizations.of(context)!.register,
+                              style: const TextStyle(fontWeight: FontWeight.bold),
                             ),
                           ),
                           onTap: () => context.go('/login/register'),
@@ -139,16 +139,16 @@ class LoginView extends HookConsumerWidget {
                         onPressed: () {
                           context.go('/parkings');
                         },
-                        child: const Text('Dev Login'),
                         style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8.0)),
                         ),
+                        child: const Text('Dev Login'),
                       ),
                     ),
                   ],
                 )
-              : CircularProgressIndicator(),
+              : const CircularProgressIndicator(),
         ),
       ),
     );

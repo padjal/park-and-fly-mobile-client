@@ -2,6 +2,7 @@
 // https://github.com/flutter/packages/blob/main/packages/go_router/example/lib/stateful_shell_route.dart
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ScaffoldWithNestedNavigation extends StatelessWidget {
   const ScaffoldWithNestedNavigation({
@@ -27,10 +28,10 @@ class ScaffoldWithNestedNavigation extends StatelessWidget {
       body: navigationShell,
       bottomNavigationBar: NavigationBar(
         selectedIndex: navigationShell.currentIndex,
-        destinations: const [
-          NavigationDestination(label: 'Parkings', icon: Icon(Icons.local_parking)),
-          NavigationDestination(label: 'Bookings', icon: Icon(Icons.bookmark)),
-          NavigationDestination(label: 'Profile', icon: Icon(Icons.person)),
+        destinations: [
+          NavigationDestination(label: AppLocalizations.of(context)!.parkings, icon: Icon(Icons.local_parking)),
+          NavigationDestination(label: AppLocalizations.of(context)!.bookings, icon: Icon(Icons.bookmark)),
+          NavigationDestination(label: AppLocalizations.of(context)!.profile, icon: Icon(Icons.person)),
         ],
         onDestinationSelected: _goBranch,
       ),

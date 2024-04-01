@@ -7,7 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:park_and_fly/ui/themes/theme_provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:park_and_fly/utils/locale_provider.dart';
+import 'package:park_and_fly/providers/application_settings_provider.dart';
 import 'utils/router_config.dart';
 
 class MyHttpOverrides extends HttpOverrides{
@@ -32,9 +32,9 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final goRouter = ref.watch(goRouterProvider);
-    final theme = ref.watch(themeProvider);
-    final locale = ref.watch(localeProvider);
-
+    // final theme = ref.watch(themeProvider);
+    // final locale = ref.watch(localeProvider);
+    final applicationSettings = ref.watch(applicationSettingsProvider);
 
     return MaterialApp.router(
       localizationsDelegates: [
@@ -48,9 +48,9 @@ class MyApp extends ConsumerWidget {
         Locale('en'), // English
         Locale('bg'), // Bulgarian
       ],
-      locale: locale.currentLocale,
+      locale: applicationSettings.currentLocale,
       title: "Park & Fly",
-      theme: theme.themeData,
+      theme: applicationSettings.isDarkModeEnabled ? ThemeData.dark() : ThemeData.light(),
       routerConfig: goRouter,
     );
   }

@@ -44,6 +44,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         },
         branches: [
           StatefulShellBranch(
+            initialLocation: '/parkings',
             routes: [
               GoRoute(
                 path: '/review',
